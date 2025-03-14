@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 public class TestJob {
     @Test
     public void executeJob() throws SchedulerException, InterruptedException {
+        // 出处：https://zhuanlan.zhihu.com/p/522284183
+
         // 1.创建调度器 Scheduler
         SchedulerFactory factory = new StdSchedulerFactory();
         Scheduler scheduler = factory.getScheduler();
