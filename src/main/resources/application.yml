@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+## quartz任务配置
+spring.quartz:
+  job-store-type: jdbc
+  properties.org.quartz:
+    scheduler:
+      instanceName: clusteredScheduler
+      instanceId: AUTO
+    jobStore:
+      driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      tablePrefix: QRTZ_
+      useProperties: false
+      isClustered: false # 打开集群
+      clusterCheckinInterval: 2000 # 同步数据库
+      acquireTriggersWithinLock: true # 防止多实例发生死锁
+    threadPool:
+      class: org.quartz.simpl.SimpleThreadPool
+      threadCount: 10
+      threadPriority: 5
+      threadsInheritContextClassLoaderOfInitializingThread: true
+
+spring:
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/quartz-demo?sessionVariables=time_zone%3d'%2B0%3A00'&useSSL=false&connectionCollation=utf8mb4_unicode_ci
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 1500000
